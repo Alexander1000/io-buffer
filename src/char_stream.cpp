@@ -97,10 +97,4 @@ namespace IOBuffer
 
         return &this->currentBuffer[this->currentPosition++];
     }
-
-    char* operator >> (CharStream cs, char* symbol)
-    {
-        symbol = cs.getNext();
-        return symbol;
-    }
 }

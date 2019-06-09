@@ -72,8 +72,6 @@ namespace IOBuffer {
         bool eof;
         bool lastFrame;
     };
-
-    char* operator >> (CharStream, char*);
 } // IOBuffer
 
 #endif /* IO_BUFFER_INCLUDED_H */
