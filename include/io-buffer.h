@@ -49,6 +49,29 @@ namespace IOBuffer {
         int readPosition;
     };
 
+    class CharStream
+    {
+    public:
+        CharStream(IOReader* reader);
+        CharStream(IOReader* reader, int bufferSize);
+        ~CharStream();
+        char* getNext();
+    private:
+        void init();
+        IOReader* reader;
+        int bufferSize;
+        char* currentBuffer;
+        char* forwardBuffer;
+        // текущая позиция для чтения
+        int currentPosition;
+        // позиция начала текущего блока
+        int posCurrent;
+        // позиция начала следующего блока
+        int posForward;
+        // признак конца потока
+        bool eof;
+        bool lastFrame;
+    };
 } // IOBuffer
 
 #endif /* IO_BUFFER_INCLUDED_H */
