@@ -57,7 +57,11 @@ namespace IOBuffer {
         ~CharStream();
         char* getNext();
     private:
+        void init();
         IOReader* reader;
+        int bufferSize;
+        char* currentBuffer;
+        char* forwardBuffer;
     };
 
     char* operator >> (CharStream, char*);

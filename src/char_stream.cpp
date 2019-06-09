@@ -1,5 +1,38 @@
+#include <io-buffer.h>
+
+#define STREAM_BUFFER_SIZE 4096
+
 namespace IOBuffer
 {
+    CharStream::CharStream(IOReader* reader)
+    {
+        this->reader = reader;
+        this->bufferSize = STREAM_BUFFER_SIZE;
+        this->init();
+    }
+
+    CharStream::CharStream(IOReader* reader, int bufferSize)
+    {
+        this->reader = reader;
+        this->bufferSize = bufferSize;
+        this->init();
+    }
+
+    void CharStream::init()
+    {
+        this->currentBuffer = new char[this->bufferSize];
+        this->forwardBuffer = new char[this->bufferSize];
+
+        memset(this->currentBuffer, 0, this->bufferSize * sizeof(char));
+        memset(this->forwardBuffer, 0, this->bufferSize * sizeof(char));
+    }
+
+    CharStream::~CharStream()
+    {
+        delete this->currentBuffer;
+        delete this->forwardBuffer;
+    }
+
     char* CharStream::getNext()
     {
         if (this->lastFrame && this->currentPosition == this->posCurrent) {
