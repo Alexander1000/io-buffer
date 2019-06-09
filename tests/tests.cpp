@@ -21,6 +21,9 @@ CppUnitTest::TestCase* testCase_SmallFile_Positive()
         CppUnitTest::assertEquals(t, assertCharacters[i], *curChar);
     }
 
+    curChar = charStream.getNext();
+    CppUnitTest::assertNull(t, curChar);
+
     t->finish();
     return t;
 }
