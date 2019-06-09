@@ -25,6 +25,17 @@ namespace IOBuffer
 
         memset(this->currentBuffer, 0, this->bufferSize * sizeof(char));
         memset(this->forwardBuffer, 0, this->bufferSize * sizeof(char));
+
+        this->currentPosition = 0;
+
+        // признак того что достигнут конец файла
+        this->eof = false;
+
+        // позиция в буфере
+        this->posCurrent = 0;
+        this->posForward = 0;
+
+        this->lastFrame = false;
     }
 
     CharStream::~CharStream()
@@ -84,6 +95,12 @@ namespace IOBuffer
             }
         }
 
-        return &this->currentBuffer[this->currentPosition];
+        return &this->currentBuffer[this->currentPosition++];
+    }
+
+    char* operator >> (CharStream cs, char* symbol)
+    {
+        symbol = cs.getNext();
+        return symbol;
     }
 }

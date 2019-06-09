@@ -62,6 +62,15 @@ namespace IOBuffer {
         int bufferSize;
         char* currentBuffer;
         char* forwardBuffer;
+        // текущая позиция для чтения
+        int currentPosition;
+        // позиция начала текущего блока
+        int posCurrent;
+        // позиция начала следующего блока
+        int posForward;
+        // признак конца потока
+        bool eof;
+        bool lastFrame;
     };
 
     char* operator >> (CharStream, char*);
