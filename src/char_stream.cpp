@@ -41,8 +41,8 @@ namespace IOBuffer
 
     CharStream::~CharStream()
     {
-        delete this->currentBuffer;
-        delete this->forwardBuffer;
+        free(this->currentBuffer);
+        free(this->forwardBuffer);
     }
 
     char* CharStream::getNext()
