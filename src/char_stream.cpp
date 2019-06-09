@@ -1,3 +1,4 @@
+#include <memory.h>
 #include <io-buffer.h>
 
 #define STREAM_BUFFER_SIZE 4096
