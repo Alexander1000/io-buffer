@@ -6,6 +6,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(IO_BUFFER_SOURCES
     src/io_file_reader.cpp
     src/io_memory_buffer.cpp
+    src/char_stream.cpp
 )
 
 set(PUBLIC_HEADERS
@@ -16,7 +17,7 @@ set(PUBLIC_HEADERS
 # Static library
 #--------------
 
-project(io-buffer VERSION 0.0.1 DESCRIPTION "io buffer")
+project(io-buffer VERSION 0.1.0 DESCRIPTION "io buffer")
 
 add_library(${PROJECT_NAME} STATIC ${IO_BUFFER_SOURCES})
 
