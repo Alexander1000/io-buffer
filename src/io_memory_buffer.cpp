@@ -93,6 +93,10 @@ namespace IOBuffer
 
         char *pBlock = NULL;
 
+        if (length > this->writePosition) {
+            length = this->writePosition;
+        }
+
         while (readLength < length && this->readPosition < this->writePosition) {
             leftRead = length - readPosition;
             lengthForRead = leftRead;

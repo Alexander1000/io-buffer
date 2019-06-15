@@ -1,5 +1,8 @@
 # Changelog io-buffer
 
+## 0.1.1
+  - read not more than buffer wrote bytes
+
 ## 0.1.0
   - add `IOBuffer::CharStream` class
 

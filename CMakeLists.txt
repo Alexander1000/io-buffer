@@ -17,7 +17,7 @@ set(PUBLIC_HEADERS
 # Static library
 #--------------
 
-project(io-buffer VERSION 0.1.0 DESCRIPTION "io buffer")
+project(io-buffer VERSION 0.1.1 DESCRIPTION "io buffer")
 
 add_library(${PROJECT_NAME} STATIC ${IO_BUFFER_SOURCES})
 
