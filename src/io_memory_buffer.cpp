@@ -55,8 +55,8 @@ namespace IOBuffer
             // lengthForSave - длина для сохранения
             lengthForSave = leftSave;
 
-            nearLimitBlock = this->blocks.size() * IO_MEMORY_BLOCK_SIZE;
-            localWriteIndex = this->writePosition % IO_MEMORY_BLOCK_SIZE;
+            nearLimitBlock = this->blocks.size() * this->ioMemoryBlockSize;
+            localWriteIndex = this->writePosition % this->ioMemoryBlockSize;
 
             if (this->writePosition + leftSave > nearLimitBlock) {
                 // осталось сохранить ещё больше лимита
@@ -67,10 +67,10 @@ namespace IOBuffer
             memcpy(pBlock + localWriteIndex, buffer, lengthForSave);
             this->writePosition += lengthForSave;
 
-            if (this->writePosition % IO_MEMORY_BLOCK_SIZE == 0) {
+            if (this->writePosition % this->ioMemoryBlockSize == 0) {
                 // если полностью заполнили блок, выделяем новый
-                pBlock = new char[IO_MEMORY_BLOCK_SIZE];
-                memset(pBlock, 0, sizeof(char) * IO_MEMORY_BLOCK_SIZE);
+                pBlock = new char[this->ioMemoryBlockSize];
+                memset(pBlock, 0, sizeof(char) * this->ioMemoryBlockSize);
                 ++this->currentBlockNumber;
                 this->blocks.push_back(pBlock);
             }
@@ -100,10 +100,10 @@ namespace IOBuffer
         while (readLength < length && this->readPosition < this->writePosition) {
             leftRead = length - readPosition;
             lengthForRead = leftRead;
-            currentReadBlock = this->readPosition / IO_MEMORY_BLOCK_SIZE;
+            currentReadBlock = this->readPosition / this->ioMemoryBlockSize;
             // границы текущего блока
-            endCurrentBlock = (currentReadBlock + 1) * IO_MEMORY_BLOCK_SIZE;
-            startCurrentBlock = currentReadBlock * IO_MEMORY_BLOCK_SIZE;
+            endCurrentBlock = (currentReadBlock + 1) * this->ioMemoryBlockSize;
+            startCurrentBlock = currentReadBlock * this->ioMemoryBlockSize;
 
             // если осталось прочитать больше чем данных в текущем блоке
             if (leftRead > endCurrentBlock - startCurrentBlock) {
@@ -113,7 +113,7 @@ namespace IOBuffer
             // читаем страницу данных
             pBlock = this->blocks.at(currentReadBlock);
             // копируем в буфер прочитанные данные
-            memcpy(buffer + readLength, pBlock + (this->readPosition % IO_MEMORY_BLOCK_SIZE), lengthForRead);
+            memcpy(buffer + readLength, pBlock + (this->readPosition % this->ioMemoryBlockSize), lengthForRead);
 
             this->readPosition += lengthForRead;
             readLength += lengthForRead;
