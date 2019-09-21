@@ -122,7 +122,7 @@ namespace IOBuffer
         // set last byte to NULL
         buffer[readLength] = '\x00';
 
-        return 0;
+        return readLength;
     }
 
     void IOMemoryBuffer::setPosition(int position) {
