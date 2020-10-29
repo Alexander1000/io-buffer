@@ -27,11 +27,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER ${PUBLIC_HEADERS}
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "io-buffer")
 set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_FLAGS -fPIC)
 
-target_include_directories(${PROJECT_NAME} PRIVATE include)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
+install(FILES ${PUBLIC_HEADERS} DESTINATION include)
+
 install (TARGETS ${PROJECT_NAME}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    PUBLIC_HEADER DESTINATION include
     COMPONENT library
 )
