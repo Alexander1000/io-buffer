@@ -12,6 +12,7 @@ namespace IOBuffer
 
         this->ioMemoryBlockSize = IO_MEMORY_BLOCK_SIZE;
         char *firstBlock = new char[this->ioMemoryBlockSize];
+        memset(firstBlock, 0, sizeof(char) * this->ioMemoryBlockSize);
         this->blocks.clear();
         this->blocks.push_back(firstBlock);
         this->currentBlockNumber = 0;
@@ -23,6 +24,7 @@ namespace IOBuffer
 
         this->ioMemoryBlockSize = ioMemoryBlockSize;
         char *firstBlock = new char[this->ioMemoryBlockSize];
+        memset(firstBlock, 0, sizeof(char) * this->ioMemoryBlockSize);
         this->blocks.clear();
         this->blocks.push_back(firstBlock);
         this->currentBlockNumber = 0;
@@ -93,12 +95,12 @@ namespace IOBuffer
 
         char *pBlock = NULL;
 
-        if (length > this->writePosition) {
-            length = this->writePosition;
+        if (this->readPosition + length > this->writePosition) {
+            length = this->writePosition - this->readPosition;
         }
 
         while (readLength < length && this->readPosition < this->writePosition) {
-            leftRead = length - readPosition;
+            leftRead = length - readLength;
             lengthForRead = leftRead;
             currentReadBlock = this->readPosition / this->ioMemoryBlockSize;
             // границы текущего блока
