@@ -1,5 +1,8 @@
 # Changelog io-buffer
 
+## 0.1.4
+  - fix segfault on repeatable read when (length for read) + (read position) more than (write position)
+
 ## 0.1.3
   - `IOBuffer::IOMemoryBuffer::read()` - return count read bytes
 
