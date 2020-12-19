@@ -38,3 +38,28 @@ install (TARGETS ${PROJECT_NAME}
     PUBLIC_HEADER DESTINATION include
     COMPONENT library
 )
+
+#--------
+# TESTS
+#--------
+
+project(io-buffer-tests)
+
+set(CMAKE_BUILD_TYPE Debug)
+
+include_directories(
+    include
+    /usr/local/include
+)
+
+find_library(CPP_UNIT_TEST libcpp-unit-test.a)
+message(STATUS "Found cpp-unit-test: ${CPP_UNIT_TEST}")
+
+add_executable(
+    ${PROJECT_NAME} tests/tests.cpp
+    ${IO_BUFFER_SOURCES}
+)
+
+target_link_libraries(${PROJECT_NAME}
+    ${CPP_UNIT_TEST}
+)
