@@ -1,5 +1,9 @@
 # Changelog io-buffer
 
+## 0.1.5
+  - fix bug multi block writing data
+  - add tests
+
 ## 0.1.4
   - fix segfault on repeatable read when (length for read) + (read position) more than (write position)
 

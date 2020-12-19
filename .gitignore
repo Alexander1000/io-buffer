@@ -6,3 +6,6 @@ Makefile
 libio-buffer.a
 CMakeFiles
 io-buffer-tests
+io-buffer.cbp
+Testing
+io-buffer-tests.cbp

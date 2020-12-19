@@ -66,7 +66,7 @@ namespace IOBuffer
             }
 
             pBlock = this->blocks.at(this->currentBlockNumber);
-            memcpy(pBlock + localWriteIndex, buffer, lengthForSave);
+            memcpy(pBlock + localWriteIndex, buffer + savedLength, lengthForSave);
             this->writePosition += lengthForSave;
 
             if (this->writePosition % this->ioMemoryBlockSize == 0) {
