@@ -78,11 +78,38 @@ CppUnitTest::TestCase* testCase_CountReadFiles_Positive()
     return t;
 }
 
+CppUnitTest::TestCase* testCase_RepeatableReadWithOverLength_Positive()
+{
+    CppUnitTest::TestCase* t = new CppUnitTest::TestCase("repeatable-read-with-over-length");
+    t->printTitle();
+
+    const char* dataForTests = "It is data for repeatable read";
+
+    IOBuffer::IOMemoryBuffer buffer(64);
+    buffer.write((char*) dataForTests, strlen(dataForTests));
+
+    char* readBlock = (char*) malloc(sizeof(char) * 21);
+    memset(readBlock, 0, sizeof(char) * 21);
+
+    int nRead = buffer.read(readBlock, 20);
+    CppUnitTest::assertEquals(t, 20, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "It is data for repea");
+
+    memset(readBlock, 0, sizeof(char) * 21);
+    nRead = buffer.read(readBlock, 20);
+    CppUnitTest::assertEquals(t, 10, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "table read");
+
+    t->finish();
+    return t;
+}
+
 int main(int argc, char** argv) {
     CppUnitTest::TestSuite testSuite;
     testSuite.addTestCase(testCase_SmallFile_Positive());
     testSuite.addTestCase(testCase_ChunkedReadFile_Positive());
     testSuite.addTestCase(testCase_CountReadFiles_Positive());
+    testSuite.addTestCase(testCase_RepeatableReadWithOverLength_Positive());
     testSuite.printTotal();
     return 0;
 }
