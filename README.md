@@ -22,7 +22,6 @@ make install
 
 How tests:
 ```shell
-cd tests
 cmake .
 make
 ./io-buffer-tests
