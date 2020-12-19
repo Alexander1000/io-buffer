@@ -6,6 +6,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 project(io-buffer-tests)
 
+include_directories(
+    ../include
+    /usr/local/include
+)
+
 find_library(IO_BUFFER libio-buffer.a)
 message(STATUS "Found io-buffer library: ${IO_BUFFER}")
 
