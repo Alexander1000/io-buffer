@@ -130,6 +130,53 @@ CppUnitTest::TestCase* testRead_RepeatableReadWithOverLengthOnSmallBlocks_Positi
     return t;
 }
 
+CppUnitTest::TestCase* testWrite_WriteDataInEqualBlock_Positive()
+{
+    auto t = new CppUnitTest::TestCase("write data in equal block");
+    t->printTitle();
+
+    const char* dataForTests = "It is data for read/write";
+
+    int testDataLength = strlen(dataForTests);
+
+    IOBuffer::IOMemoryBuffer buffer(testDataLength);
+    buffer.write((char*) dataForTests, testDataLength);
+    buffer.write((char*) dataForTests, testDataLength);
+    buffer.write((char*) dataForTests, testDataLength);
+    buffer.write((char*) dataForTests, testDataLength);
+    buffer.write((char*) dataForTests, testDataLength);
+
+    char* readBlock = (char*) malloc(sizeof(char) * (testDataLength + 1));
+    memset(readBlock, 0, sizeof(char) * (testDataLength + 1));
+
+    int nRead = buffer.read(readBlock, testDataLength);
+    CppUnitTest::assertEquals(t, testDataLength, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "It is data for read/write");
+
+    memset(readBlock, 0, sizeof(char) * (testDataLength + 1));
+    nRead = buffer.read(readBlock, testDataLength);
+    CppUnitTest::assertEquals(t, testDataLength, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "It is data for read/write");
+
+    memset(readBlock, 0, sizeof(char) * 12);
+    nRead = buffer.read(readBlock, 11);
+    CppUnitTest::assertEquals(t, 11, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "It is data ");
+
+    memset(readBlock, 0, sizeof(char) * 16);
+    nRead = buffer.read(readBlock, 15);
+    CppUnitTest::assertEquals(t, 15, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "for read/writeI");
+
+    memset(readBlock, 0, sizeof(char) * 51);
+    nRead = buffer.read(readBlock, 50);
+    CppUnitTest::assertEquals(t, 49, nRead);
+    CppUnitTest::assertEquals(t, readBlock, "t is data for read/writeIt is data for read/write");
+
+    t->finish();
+    return t;
+}
+
 int main(int argc, char** argv) {
     CppUnitTest::TestSuite testSuite;
     testSuite.addTestCase(testCase_SmallFile_Positive());
@@ -137,6 +184,7 @@ int main(int argc, char** argv) {
     testSuite.addTestCase(testCase_CountReadFiles_Positive());
     testSuite.addTestCase(testCase_RepeatableReadWithOverLength_Positive());
     testSuite.addTestCase(testRead_RepeatableReadWithOverLengthOnSmallBlocks_Positive());
+    testSuite.addTestCase(testWrite_WriteDataInEqualBlock_Positive());
     testSuite.printTotal();
     return 0;
 }

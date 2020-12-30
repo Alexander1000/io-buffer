@@ -108,7 +108,7 @@ namespace IOBuffer
             startCurrentBlock = currentReadBlock * this->ioMemoryBlockSize;
 
             // если осталось прочитать больше чем данных в текущем блоке
-            if (leftRead > endCurrentBlock - startCurrentBlock) {
+            if (leftRead > endCurrentBlock - this->readPosition) {
                 lengthForRead = endCurrentBlock - this->readPosition;
             }
 

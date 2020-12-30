@@ -1,5 +1,9 @@
 # Changelog io-buffer
 
+## 0.1.6
+  - fix bug with multi block read data
+  - add tests
+
 ## 0.1.5
   - fix bug multi block writing data
   - add tests
