@@ -32,6 +32,23 @@ namespace IOBuffer {
         FILE *getHandler();
     };
 
+    class IOFileWriter : public IOWriter {
+    public:
+        IOFileWriter(char* fileName);
+        IOFileWriter(const char* fileName);
+        IOFileWriter(std::string fileName);
+        IOFileWriter(char* fileName, const char* mode);
+        IOFileWriter(const char* fileName, const char* mode);
+        IOFileWriter(std::string fileName, const char* mode);
+        ~IOFileWriter();
+        int write(char *buffer, int length);
+    private:
+        char* fileName;
+        const char* mode;
+        FILE* hFile;
+        FILE* getHandler();
+    };
+
     class IOMemoryBuffer : public IOBuffer {
     public:
         IOMemoryBuffer();

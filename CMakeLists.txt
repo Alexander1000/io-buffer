@@ -5,6 +5,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(IO_BUFFER_SOURCES
     src/io_file_reader.cpp
+    src/io_file_writer.cpp
     src/io_memory_buffer.cpp
     src/char_stream.cpp
 )

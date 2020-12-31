@@ -1,5 +1,8 @@
 # Changelog io-buffer
 
+## 0.2.0
+  - add IOBuffer::IOFileWriter
+
 ## 0.1.6
   - fix bug with multi block read data
   - add tests
